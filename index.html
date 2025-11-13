@@ -9,134 +9,839 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
+  * {
+    box-sizing: border-box;
+  }
+
   body {
     margin: 0;
     font-family: "Poppins", sans-serif;
-    background: linear-gradient(135deg, #f7b7d3, #dba6f0, #b9d6ff);
-    background-size: 300% 300%;
-    animation: gradientMove 12s ease infinite;
-    color: #fff;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
+    transition: background 1s ease;
+    background: radial-gradient(circle at top, #ffe3ba, #f1b3ff, #9c7cff);
+  }
+
+  body.night {
+    background: radial-gradient(circle at top, #1a1023, #2a1740, #120b1f);
+  }
+
+  .scene {
     position: relative;
+    width: 95vw;
+    max-width: 1000px;
+    height: 75vh;
+    max-height: 620px;
+    border-radius: 28px;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 20px;
+    backdrop-filter: blur(16px);
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
     overflow: hidden;
   }
 
-  /* Background animation */
-  @keyframes gradientMove {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+  body.night .scene {
+    background: rgba(20, 12, 34, 0.85);
+    border-color: rgba(209, 196, 255, 0.4);
   }
 
-  .container {
-    text-align: center;
-    backdrop-filter: blur(14px);
-    padding: 50px 70px;
-    border-radius: 25px;
-    background: rgba(255, 255, 255, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
-    animation: fadeIn 1.2s ease forwards;
+  /* ROOM SIDE */
+  .room {
+    position: relative;
+    border-radius: 22px;
+    height: 100%;
+    overflow: hidden;
+    padding: 22px;
+    background: linear-gradient(145deg, #f7d2ff, #ffe8c5);
   }
 
-  h1 {
-    font-size: 3.2rem;
-    margin-bottom: 10px;
-    text-shadow: 0 0 12px rgba(255, 200, 255, 0.8);
+  body.night .room {
+    background: radial-gradient(circle at top, #332145, #1c1028);
   }
 
-  .count {
-    font-size: 3rem;
-    font-weight: 700;
-    margin-top: 10px;
-    color: #fff7ff;
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.9);
-  }
-
-  .message {
-    font-size: 1.4rem;
-    margin-top: 15px;
-    opacity: 0;
-    animation: fadeInText 2s 0.8s forwards;
-  }
-
-  @keyframes fadeIn {
-    0% { opacity: 0; transform: translateY(40px); }
-    100% { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes fadeInText {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-  }
-
-  /* Floating particles */
-  .particle {
+  .window-glow {
     position: absolute;
+    top: -60px;
+    right: -40px;
+    width: 260px;
+    height: 260px;
+    background: radial-gradient(circle, rgba(255, 248, 210, 0.9), transparent 70%);
+    opacity: 0.8;
+    pointer-events: none;
+  }
+
+  body.night .window-glow {
+    background: radial-gradient(circle, rgba(255, 241, 179, 0.7), transparent 70%);
+  }
+
+  .fairy-lights {
+    position: absolute;
+    top: 18px;
+    left: 16px;
+    right: 16px;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    pointer-events: none;
+  }
+
+  .fairy-lights span {
     width: 9px;
     height: 9px;
-    background-color: rgba(255, 255, 255, 0.8);
     border-radius: 50%;
-    animation: float 6s infinite ease-in-out;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
+    animation: fairyTwinkle 2.5s ease-in-out infinite;
   }
 
-  @keyframes float {
-    0% { transform: translateY(0); opacity: .4; }
-    50% { transform: translateY(-100px); opacity: 1; }
-    100% { transform: translateY(0); opacity: .4; }
+  .fairy-lights span:nth-child(odd) {
+    animation-delay: 0.8s;
+  }
+
+  @keyframes fairyTwinkle {
+    0%, 100% { opacity: 0.3; transform: translateY(0px); }
+    50% { opacity: 1; transform: translateY(-3px); }
+  }
+
+  .bookshelf {
+    position: absolute;
+    left: 20px;
+    bottom: 130px;
+    width: 90px;
+    height: 120px;
+    background: #d6b3ff;
+    border-radius: 14px;
+    padding: 8px;
+    box-shadow: 0 0 18px rgba(100, 60, 140, 0.5);
+  }
+
+  body.night .bookshelf {
+    background: #3a2754;
+  }
+
+  .book {
+    width: 100%;
+    height: 12px;
+    border-radius: 6px;
+    margin-bottom: 6px;
+  }
+
+  .book:nth-child(1) { background: #ffcfdf; }
+  .book:nth-child(2) { background: #ffc3a0; }
+  .book:nth-child(3) { background: #b5f2ff; }
+  .book:nth-child(4) { background: #c8ffc8; }
+  .book:nth-child(5) { background: #fff0b3; }
+
+  .plant {
+    position: absolute;
+    left: 130px;
+    bottom: 100px;
+    width: 70px;
+    height: 90px;
+  }
+
+  .plant-pot {
+    position: absolute;
+    bottom: 0;
+    left: 15px;
+    width: 40px;
+    height: 24px;
+    border-radius: 10px 10px 4px 4px;
+    background: #f3a27b;
+    box-shadow: 0 4px 10px rgba(150, 80, 40, 0.6);
+  }
+
+  body.night .plant-pot {
+    background: #e58a60;
+  }
+
+  .plant-leaf {
+    position: absolute;
+    bottom: 20px;
+    width: 18px;
+    height: 40px;
+    border-radius: 50px;
+    background: #4bad6b;
+    transform-origin: bottom center;
+    animation: leafSway 4s ease-in-out infinite;
+  }
+
+  .plant-leaf:nth-child(1) { left: 10px; transform: rotate(-12deg); }
+  .plant-leaf:nth-child(2) { left: 26px; transform: rotate(0deg); animation-delay: 0.7s; }
+  .plant-leaf:nth-child(3) { left: 42px; transform: rotate(12deg); animation-delay: 1.2s; }
+
+  @keyframes leafSway {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(6deg); }
+  }
+
+  .desk {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 70px;
+    height: 65px;
+    background: linear-gradient(to right, #f4cbb0, #f7b4c8);
+    box-shadow: 0 -4px 16px rgba(160, 75, 80, 0.4);
+  }
+
+  body.night .desk {
+    background: linear-gradient(to right, #382030, #3e2744);
+  }
+
+  .pc-setup {
+    position: absolute;
+    bottom: 92px;
+    right: 60px;
+    width: 220px;
+    height: 120px;
+  }
+
+  .monitor {
+    position: absolute;
+    width: 150px;
+    height: 90px;
+    right: 30px;
+    bottom: 36px;
+    border-radius: 14px;
+    background: #1b1130;
+    border: 3px solid rgba(255, 255, 255, 0.8);
+    overflow: hidden;
+    box-shadow: 0 0 18px rgba(255, 255, 255, 0.4);
+  }
+
+  .monitor-screen {
+    position: absolute;
+    inset: 6px;
+    border-radius: 10px;
+    background: radial-gradient(circle at top left, #ffe9c7, #f3b6ff, #272445);
+    animation: codeGlow 6s linear infinite;
+  }
+
+  @keyframes codeGlow {
+    0% { filter: brightness(1); }
+    50% { filter: brightness(1.25); }
+    100% { filter: brightness(1); }
+  }
+
+  .keyboard {
+    position: absolute;
+    right: 40px;
+    bottom: 22px;
+    width: 160px;
+    height: 16px;
+    border-radius: 10px;
+    background: #f7e3ff;
+    box-shadow: 0 4px 10px rgba(120, 80, 140, 0.6);
+  }
+
+  body.night .keyboard {
+    background: #f2d5ff;
+  }
+
+  .tower {
+    position: absolute;
+    right: 0;
+    bottom: 36px;
+    width: 36px;
+    height: 80px;
+    border-radius: 10px;
+    background: #20132f;
+    box-shadow: 0 0 14px rgba(255, 153, 204, 0.5);
+  }
+
+  .tower-light {
+    position: absolute;
+    left: 9px;
+    top: 18px;
+    width: 18px;
+    height: 36px;
+    border-radius: 10px;
+    background: linear-gradient(to bottom, #ffaad6, #ffd6f0);
+  }
+
+  /* GIRL CHARACTER */
+
+  .girl-wrapper {
+    position: absolute;
+    bottom: 74px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 170px;
+    height: 190px;
+  }
+
+  .girl-back,
+  .girl-front {
+    position: absolute;
+    inset: 0;
+    transition: opacity 1s ease, transform 1s ease;
+  }
+
+  .girl-front {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .girl-back {
+    opacity: 1;
+  }
+
+  .scene.turned .girl-back {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  .scene.turned .girl-front {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Chair */
+  .chair-back {
+    position: absolute;
+    bottom: 20px;
+    left: 32px;
+    width: 110px;
+    height: 110px;
+    border-radius: 22px;
+    background: linear-gradient(145deg, #3b2f5a, #2b2042);
+    box-shadow: 0 10px 20px rgba(40, 25, 70, 0.7);
+  }
+
+  body.night .chair-back {
+    background: linear-gradient(145deg, #251833, #1b1029);
+  }
+
+  .chair-seat {
+    position: absolute;
+    bottom: 10px;
+    left: 40px;
+    width: 95px;
+    height: 26px;
+    border-radius: 16px;
+    background: #3b284c;
+  }
+
+  /* Back view of hoodie girl */
+  .hoodie-back {
+    position: absolute;
+    bottom: 55px;
+    left: 52px;
+    width: 80px;
+    height: 95px;
+    border-radius: 45px;
+    background: linear-gradient(145deg, #9251ff, #ff7ccf);
+  }
+
+  .hoodie-hood {
+    position: absolute;
+    top: -16px;
+    left: 12px;
+    width: 56px;
+    height: 40px;
+    border-radius: 30px;
+    background: #8042f0;
+  }
+
+  .hair-pony-back {
+    position: absolute;
+    top: 14px;
+    right: -8px;
+    width: 22px;
+    height: 60px;
+    border-radius: 16px;
+    background: #3b2630;
+    transform-origin: top center;
+    animation: ponySway 3.6s ease-in-out infinite;
+  }
+
+  @keyframes ponySway {
+    0%, 100% { transform: rotate(4deg); }
+    50% { transform: rotate(-6deg); }
+  }
+
+  /* Front view */
+
+  .body-front {
+    position: absolute;
+    bottom: 46px;
+    left: 50px;
+    width: 86px;
+    height: 100px;
+    border-radius: 46px;
+    background: linear-gradient(145deg, #9150ff, #ff91d3);
+  }
+
+  .hoodie-pocket {
+    position: absolute;
+    bottom: 22px;
+    left: 20px;
+    width: 46px;
+    height: 20px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.18);
+  }
+
+  .head {
+    position: absolute;
+    bottom: 116px;
+    left: 62px;
+    width: 56px;
+    height: 64px;
+    border-radius: 30px;
+    background: #f5cdb0;
+    box-shadow: 0 0 10px rgba(60, 30, 10, 0.3);
+  }
+
+  .fringe {
+    position: absolute;
+    top: 8px;
+    left: 4px;
+    width: 48px;
+    height: 28px;
+    border-radius: 40px;
+    background: #3b2630;
+  }
+
+  .pony-side {
+    position: absolute;
+    top: 26px;
+    right: -12px;
+    width: 22px;
+    height: 58px;
+    border-radius: 16px;
+    background: #3b2630;
+    transform-origin: top center;
+    animation: ponyFrontSway 4s ease-in-out infinite;
+  }
+
+  @keyframes ponyFrontSway {
+    0%, 100% { transform: rotate(-6deg); }
+    50% { transform: rotate(3deg); }
+  }
+
+  .eye {
+    position: absolute;
+    top: 26px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #2b1420;
+  }
+
+  .eye.left {
+    left: 16px;
+  }
+
+  .eye.right {
+    right: 16px;
+  }
+
+  .smile {
+    position: absolute;
+    top: 38px;
+    left: 50%;
+    width: 24px;
+    height: 14px;
+    border-bottom: 3px solid #2b1420;
+    border-radius: 0 0 40px 40px;
+    transform: translateX(-50%);
+  }
+
+  .blush {
+    position: absolute;
+    top: 34px;
+    width: 10px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 150, 180, 0.7);
+  }
+
+  .blush.left { left: 8px; }
+  .blush.right { right: 8px; }
+
+  .blink {
+    animation: blinkEyes 5s ease-in-out infinite;
+  }
+
+  @keyframes blinkEyes {
+    0%, 90%, 100% { transform: scaleY(1); }
+    92%, 96% { transform: scaleY(0.15); }
+  }
+
+  /* RIGHT SIDE: TEXT & INFO */
+
+  .panel {
+    position: relative;
+    height: 100%;
+    border-radius: 20px;
+    padding: 22px 24px;
+    background: rgba(255, 255, 255, 0.82);
+    color: #3a2347;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  body.night .panel {
+    background: rgba(15, 9, 26, 0.94);
+    color: #fdf2ff;
+    border: 1px solid rgba(210, 190, 255, 0.5);
+  }
+
+  .tagline {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  #welcomeText {
+    font-size: 1.8rem;
+    font-weight: 600;
+    min-height: 2.2rem;
+    margin: 0 0 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 2px solid rgba(100, 60, 120, 0.8);
+    animation: caretBlink 0.9s step-end infinite;
+  }
+
+  @keyframes caretBlink {
+    0%, 100% { border-color: transparent; }
+    50% { border-color: rgba(100, 60, 120, 0.9); }
+  }
+
+  #thankYou {
+    margin: 4px 0 14px;
+    font-size: 0.98rem;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+
+  #thankYou.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .counter-row {
+    margin-top: 10px;
+    font-size: 1rem;
+  }
+
+  #visitorCount {
+    font-size: 1.7rem;
+    font-weight: 700;
+    margin-left: 4px;
+    text-shadow: 0 0 10px rgba(150, 90, 200, 0.8);
+  }
+
+  .hint {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    margin-top: 4px;
+  }
+
+  .controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+  }
+
+  .btn {
+    border: none;
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(120, 70, 200, 0.12);
+    color: #43245a;
+    backdrop-filter: blur(6px);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  }
+
+  .btn span.icon {
+    font-size: 1rem;
+  }
+
+  .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(60, 20, 90, 0.35);
+    background: rgba(120, 70, 200, 0.2);
+  }
+
+  body.night .btn {
+    background: rgba(210, 190, 255, 0.09);
+    color: #f8e9ff;
+  }
+
+  .footer-note {
+    font-size: 0.75rem;
+    opacity: 0.7;
+    margin-top: 8px;
+  }
+
+  /* Floating sparkles */
+
+  .sparkle {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    pointer-events: none;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff, rgba(255,255,255,0));
+    opacity: 0.9;
+    transform: translate(-50%, -50%);
+    animation: sparklePop 0.8s ease-out forwards;
+    z-index: 999;
+  }
+
+  @keyframes sparklePop {
+    0% { transform: translate(-50%, -50%) scale(0.4); opacity: 1; }
+    60% { transform: translate(-50%, -80%) scale(1); opacity: 0.9; }
+    100% { transform: translate(-50%, -120%) scale(0.2); opacity: 0; }
+  }
+
+  @media (max-width: 800px) {
+    .scene {
+      grid-template-columns: 1fr;
+      height: auto;
+      max-height: none;
+      padding: 18px;
+    }
+
+    .room {
+      height: 260px;
+    }
+
+    .panel {
+      margin-top: 10px;
+    }
   }
 </style>
 </head>
 
 <body>
+<div class="scene" id="scene">
+  <!-- LEFT: Cozy room -->
+  <div class="room">
+    <div class="window-glow"></div>
 
-<div class="container">
-  <h1>✨ Welcome ✨</h1>
-  <p class="message">You’re visitor number</p>
-  <div class="count" id="visitorCount">0</div>
+    <div class="fairy-lights">
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
 
-  <p class="message">Thanks for stopping by — your presence made this page brighter 🌸</p>
+    <div class="bookshelf">
+      <div class="book"></div>
+      <div class="book"></div>
+      <div class="book"></div>
+      <div class="book"></div>
+      <div class="book"></div>
+    </div>
+
+    <div class="plant">
+      <div class="plant-leaf"></div>
+      <div class="plant-leaf"></div>
+      <div class="plant-leaf"></div>
+      <div class="plant-pot"></div>
+    </div>
+
+    <div class="desk"></div>
+
+    <div class="pc-setup">
+      <div class="monitor">
+        <div class="monitor-screen"></div>
+      </div>
+      <div class="keyboard"></div>
+      <div class="tower">
+        <div class="tower-light"></div>
+      </div>
+    </div>
+
+    <!-- Girl character -->
+    <div class="girl-wrapper">
+      <!-- Back view -->
+      <div class="girl-back">
+        <div class="chair-back"></div>
+        <div class="chair-seat"></div>
+        <div class="hoodie-back"></div>
+        <div class="hoodie-hood"></div>
+        <div class="hair-pony-back"></div>
+      </div>
+
+      <!-- Front view -->
+      <div class="girl-front">
+        <div class="chair-back"></div>
+        <div class="chair-seat"></div>
+        <div class="body-front">
+          <div class="hoodie-pocket"></div>
+        </div>
+        <div class="head">
+          <div class="fringe"></div>
+          <div class="eye left blink"></div>
+          <div class="eye right blink"></div>
+          <div class="smile"></div>
+          <div class="blush left"></div>
+          <div class="blush right"></div>
+          <div class="pony-side"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: text, counter, controls -->
+  <div class="panel">
+    <div>
+      <div class="tagline">A tiny cozy corner on the internet</div>
+      <h2 id="welcomeText"></h2>
+      <p id="thankYou">
+        Thanks for stopping by — your visit just made this little coding room feel a bit warmer ☕💜
+      </p>
+
+      <div class="counter-row">
+        <span>You're visitor number</span>
+        <span id="visitorCount">0</span>
+      </div>
+      <div class="hint">Counter is live (it slowly increases as people open this page).</div>
+    </div>
+
+    <div>
+      <div class="controls">
+        <button class="btn" id="themeToggle">
+          <span class="icon">🌙</span>
+          <span>Night mode</span>
+        </button>
+        <button class="btn" id="musicToggle">
+          <span class="icon">🎧</span>
+          <span>Lofi: off</span>
+        </button>
+      </div>
+      <div class="footer-note">
+        Tip: This page is linked from your GitHub profile "Click Me 🚀" button.
+      </div>
+    </div>
+  </div>
 </div>
 
-<script>
-  // REAL visitor counter API
-  fetch("https://api.countapi.xyz/hit/ananya-cozy-website/visits")
-    .then(response => response.json())
-    .then(data => {
-      animateCount(data.value);
-    });
+<!-- Lofi audio: add your own MP3 file named "lofi-study.mp3" in this repo to enable real sound -->
+<audio id="lofiAudio" loop src="lofi-study.mp3"></audio>
 
-  // Smooth animated counting effect
+<script>
+  const scene = document.getElementById("scene");
+  const welcomeEl = document.getElementById("welcomeText");
+  const thankYouEl = document.getElementById("thankYou");
+  const visitorEl = document.getElementById("visitorCount");
+  const themeToggle = document.getElementById("themeToggle");
+  const musicToggle = document.getElementById("musicToggle");
+  const audio = document.getElementById("lofiAudio");
+
+  // 1) Girl turns and smiles
+  setTimeout(() => {
+    scene.classList.add("turned");
+  }, 700);
+
+  // 2) Typing animation for "Welcome!"
+  const welcomeText = "Welcome! ✨";
+  let typedIndex = 0;
+
+  function typeNext() {
+    if (typedIndex <= welcomeText.length) {
+      welcomeEl.textContent = welcomeText.slice(0, typedIndex);
+      typedIndex++;
+      setTimeout(typeNext, 90);
+    } else {
+      // show thank you text once typing complete
+      setTimeout(() => {
+        thankYouEl.classList.add("show");
+      }, 300);
+    }
+  }
+
+  setTimeout(typeNext, 1100);
+
+  // 3) Real visitor counter with animated number
   function animateCount(finalNumber) {
     let current = 0;
-    const increment = Math.ceil(finalNumber / 100);
-
-    const counter = document.getElementById("visitorCount");
-
+    const increment = Math.max(1, Math.ceil(finalNumber / 80));
     const interval = setInterval(() => {
       current += increment;
       if (current >= finalNumber) {
         current = finalNumber;
         clearInterval(interval);
       }
-      counter.textContent = current;
+      visitorEl.textContent = current.toLocaleString();
     }, 20);
   }
 
-  // Floating cozy particles
-  for (let i = 0; i < 35; i++) {
-    const particle = document.createElement("div");
-    particle.className = "particle";
-    particle.style.left = Math.random() * 100 + "vw";
-    particle.style.top = Math.random() * 100 + "vh";
-    particle.style.animationDuration = 4 + Math.random() * 6 + "s";
-    particle.style.background = "rgba(255,255,255,"+(0.3 + Math.random() * 0.7)+")";
-    document.body.appendChild(particle);
-  }
-</script>
+  fetch("https://api.countapi.xyz/hit/ananya-cozy-room-page/visits")
+    .then(r => r.json())
+    .then(data => {
+      animateCount(data.value || 1);
+    })
+    .catch(() => {
+      // fallback if API fails
+      visitorEl.textContent = "✨";
+    });
 
+  // 4) Night / day toggle
+  let isNight = false;
+  themeToggle.addEventListener("click", () => {
+    isNight = !isNight;
+    document.body.classList.toggle("night", isNight);
+    themeToggle.querySelector("span.icon").textContent = isNight ? "☀️" : "🌙";
+    themeToggle.querySelectorAll("span")[1].textContent = isNight ? "Day mode" : "Night mode";
+  });
+
+  // 5) Lofi music toggle
+  let musicOn = false;
+  musicToggle.addEventListener("click", async () => {
+    musicOn = !musicOn;
+    if (musicOn) {
+      try {
+        await audio.play();
+        musicToggle.querySelector("span.icon").textContent = "🎶";
+        musicToggle.querySelectorAll("span")[1].textContent = "Lofi: on";
+      } catch (e) {
+        musicOn = false;
+        console.warn("Audio play failed (maybe no file or browser blocked autoplay).");
+      }
+    } else {
+      audio.pause();
+      musicToggle.querySelector("span.icon").textContent = "🎧";
+      musicToggle.querySelectorAll("span")[1].textContent = "Lofi: off";
+    }
+  });
+
+  // 6) Hover sparkles
+  let sparkleCooldown = false;
+  window.addEventListener("mousemove", (e) => {
+    if (sparkleCooldown) return;
+    sparkleCooldown = true;
+    setTimeout(() => sparkleCooldown = false, 60);
+
+    const sparkle = document.createElement("div");
+    sparkle.className = "sparkle";
+    sparkle.style.left = e.clientX + "px";
+    sparkle.style.top = e.clientY + "px";
+    document.body.appendChild(sparkle);
+    setTimeout(() => sparkle.remove(), 800);
+  });
+</script>
 </body>
 </html>
