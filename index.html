@@ -44,13 +44,15 @@
     transition: opacity 1.2s ease;
   }
 
+  /* your correct background */
   .bg-typing {
-    background-image: url("room-typing.jpeg");
+    background-image: url("room-typing.jpg");
     opacity: 1;
   }
 
+  /* fallback to same image because you don't have room-smile.jpg */
   .bg-smile {
-    background-image: url("room-smile.jpeg"); /* if this file doesn't exist, typing image will still show */
+    background-image: url("room-typing.jpg");
     opacity: 0;
   }
 
