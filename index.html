@@ -27,95 +27,76 @@
 
   .scene {
     position: relative;
-    width: min(950px, 96vw);
-    height: min(650px, 90vh);
+    width: min(1100px, 96vw);
+    height: min(700px, 90vh);
     border-radius: 28px;
     overflow: hidden;
     box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+    background: #000;
   }
-
-  /* background images */
 
   .bg-layer {
     position: absolute;
     inset: 0;
     background-position: center;
-    background-size: cover;
-    transition: opacity 1.2s ease;
-  }
-
-  /* your correct background */
-  .bg-typing {
-    background-image: url("room-typing.jpg");
+    background-size: contain;   /* FULL IMAGE, NO CROP */
+    background-repeat: no-repeat;
     opacity: 1;
+    transition: opacity 1.5s ease;
   }
 
-  /* fallback to same image because you don't have room-smile.jpg */
-  .bg-smile {
-    background-image: url("room-typing.jpg");
-    opacity: 0;
-  }
+  .bg-typing { background-image: url("room-typing.jpg"); }
+  .bg-smile { background-image: url("room-typing.jpg"); opacity: 0; }
 
-  .scene.smile-on .bg-smile {
-    opacity: 1;
-  }
+  .scene.smile-on .bg-smile { opacity: 1; }
+  .scene.smile-on .bg-typing { opacity: 0; }
 
-  .scene.smile-on .bg-typing {
-    opacity: 0;
-  }
-
-  /* soft overlays */
-
-  .overlay-gradient {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at top right, rgba(255,255,255,0.08), transparent 55%),
-                linear-gradient(to right, rgba(0,0,0,0.25) 0%, transparent 40%, rgba(255,255,255,0.08) 100%);
-    mix-blend-mode: soft-light;
-    pointer-events: none;
-  }
-
-  body.night .overlay-gradient {
-    background: radial-gradient(circle at top right, rgba(0,0,0,0.6), transparent 60%),
-                linear-gradient(to right, rgba(0,0,0,0.6) 0%, transparent 45%, rgba(0,0,0,0.8) 100%);
-  }
-
+  /* RIGHT PANEL CLEAN DESIGN */
   .right-panel {
     position: absolute;
     top: 0;
     right: 0;
-    width: 40%;
+    width: 32%;  /* SMALLER */
     height: 100%;
-    padding: 26px 28px;
+    padding: 34px 32px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+    background: linear-gradient(
+      to left,
+      rgba(255,255,255,0.85),
+      rgba(255,255,255,0.4),
+      transparent
+    );
+
     color: #3d2a1f;
-    background: linear-gradient(to left, rgba(255,255,255,0.92), rgba(255,255,255,0.65), transparent);
-    backdrop-filter: blur(8px);
   }
 
   body.night .right-panel {
+    background: linear-gradient(
+      to left,
+      rgba(18,10,28,0.92),
+      rgba(18,10,28,0.6),
+      transparent
+    );
     color: #f9efff;
-    background: linear-gradient(to left, rgba(12,7,18,0.97), rgba(18,10,28,0.8), transparent);
   }
 
   .tagline {
     font-size: 0.85rem;
     opacity: 0.75;
-    text-transform: uppercase;
     letter-spacing: 0.08em;
   }
 
   #welcomeText {
-    margin: 10px 0 4px;
-    font-size: 1.8rem;
-    font-weight: 600;
+    margin: 14px 0 8px;
+    font-size: 2rem;
+    font-weight: 700;
     white-space: nowrap;
     overflow: hidden;
     border-right: 2px solid rgba(120,80,140,0.8);
-    animation: caretBlink 1s step-end infinite;
-    min-height: 2.2rem;
+    animation: caretBlink 1s infinite;
   }
 
   @keyframes caretBlink {
@@ -124,10 +105,11 @@
   }
 
   #thankYou {
-    font-size: 0.98rem;
+    font-size: 1rem;
     opacity: 0;
     transform: translateY(8px);
-    transition: opacity 0.9s ease, transform 0.9s ease;
+    transition: opacity 1s ease, transform 1s ease;
+    margin-bottom: 16px;
   }
 
   #thankYou.show {
@@ -136,165 +118,82 @@
   }
 
   .counter-row {
-    margin-top: 14px;
-    font-size: 0.98rem;
+    margin-top: 18px;
+    font-size: 1rem;
   }
 
   #visitorCount {
-    font-size: 1.7rem;
+    font-size: 1.9rem;
     font-weight: 700;
-    margin-left: 4px;
-    text-shadow: 0 0 12px rgba(180,120,210,0.8);
-  }
-
-  .hint {
-    font-size: 0.8rem;
-    opacity: 0.7;
-    margin-top: 4px;
+    margin-left: 6px;
+    color: #7544b2;
   }
 
   .controls {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 12px;
+    gap: 12px;
+    margin-top: 20px;
   }
 
   .btn {
     border: none;
     border-radius: 999px;
-    padding: 8px 14px;
+    padding: 10px 16px;
     font-size: 0.82rem;
     display: inline-flex;
-    gap: 6px;
     align-items: center;
+    gap: 6px;
     cursor: pointer;
     background: rgba(140,100,190,0.12);
     color: #3d2a1f;
-    backdrop-filter: blur(6px);
-    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    transition: all 0.2s ease;
   }
 
-  .btn span.icon { font-size: 1rem; }
-
   .btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 6px 14px rgba(60,30,90,0.35);
-    background: rgba(140,100,190,0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(60,30,90,0.3);
   }
 
   body.night .btn {
+    background: rgba(210,190,255,0.1);
     color: #f9efff;
-    background: rgba(210,190,255,0.08);
-  }
-
-  .footer-note {
-    font-size: 0.76rem;
-    opacity: 0.7;
-    margin-top: 8px;
-  }
-
-  /* floating dust/particles */
-
-  .dust {
-    position: absolute;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(255,255,255,0.9), transparent 70%);
-    opacity: 0.7;
-    pointer-events: none;
-    animation: floatDust 10s linear infinite;
-  }
-
-  @keyframes floatDust {
-    0% { transform: translateY(0) translateX(0); opacity: 0; }
-    10% { opacity: 0.7; }
-    50% { transform: translateY(-80px) translateX(30px); opacity: 0.9; }
-    100% { transform: translateY(-160px) translateX(60px); opacity: 0; }
-  }
-
-  /* hover sparkles */
-
-  .sparkle {
-    position: fixed;
-    width: 9px;
-    height: 9px;
-    pointer-events: none;
-    border-radius: 50%;
-    background: radial-gradient(circle, #fff, rgba(255,255,255,0));
-    opacity: 0.9;
-    transform: translate(-50%, -50%);
-    animation: sparklePop 0.8s ease-out forwards;
-    z-index: 999;
-  }
-
-  @keyframes sparklePop {
-    0% { transform: translate(-50%, -50%) scale(0.4); opacity: 1; }
-    60% { transform: translate(-50%, -80%) scale(1); opacity: 0.9; }
-    100% { transform: translate(-50%, -120%) scale(0.2); opacity: 0; }
-  }
-
-  @media (max-width: 850px) {
-    .scene {
-      height: min(650px, 96vh);
-    }
-    .right-panel {
-      width: 100%;
-      height: 45%;
-      bottom: 0;
-      top: auto;
-      background: linear-gradient(to top, rgba(255,255,255,0.96), rgba(255,255,255,0.7), transparent);
-    }
-    body.night .right-panel {
-      background: linear-gradient(to top, rgba(10,6,16,0.97), rgba(15,8,24,0.7), transparent);
-    }
   }
 </style>
 </head>
+
 <body>
 
 <div class="scene" id="scene">
+
   <div class="bg-layer bg-typing"></div>
   <div class="bg-layer bg-smile"></div>
-  <div class="overlay-gradient"></div>
-
-  <!-- dust / particles will be inserted by JS -->
 
   <div class="right-panel">
     <div>
       <div class="tagline">A cozy little coding corner</div>
+
       <h2 id="welcomeText"></h2>
-      <p id="thankYou">
-        Thanks for stopping by — your visit just made this cozy corner brighter ☕💛
-      </p>
+
+      <p id="thankYou">Thanks for stopping by — your visit just made this cozy corner brighter ☕💛</p>
 
       <div class="counter-row">
-        You’re visitor number
-        <span id="visitorCount">0</span>
+        You’re visitor number <span id="visitorCount">0</span>
       </div>
-      <div class="hint">This counter updates as people discover this page.</div>
     </div>
 
     <div>
       <div class="controls">
-        <button class="btn" id="themeToggle">
-          <span class="icon">🌙</span>
-          <span>Night mode</span>
-        </button>
-        <button class="btn" id="musicToggle">
-          <span class="icon">🎧</span>
-          <span>Lofi: off</span>
-        </button>
+        <button class="btn" id="themeToggle">🌙 Night mode</button>
+        <button class="btn" id="musicToggle">🎧 Lofi: off</button>
       </div>
-      <div class="footer-note">
-        Linked from your GitHub profile “Click Me 🚀” button · Made with lots of coffee & curiosity.
+
+      <div style="font-size: 0.75rem; opacity: 0.7; margin-top: 10px;">
+        Linked from your GitHub · Made with coffee & curiosity ☕
       </div>
     </div>
   </div>
 </div>
 
-<!-- optional: put lofi-study.mp3 in this repo for real music -->
 <audio id="lofiAudio" loop src="lofi-study.mp3"></audio>
 
 <script>
@@ -302,102 +201,48 @@
   const welcomeEl = document.getElementById("welcomeText");
   const thankYouEl = document.getElementById("thankYou");
   const visitorEl = document.getElementById("visitorCount");
-  const themeToggle = document.getElementById("themeToggle");
-  const musicToggle = document.getElementById("musicToggle");
-  const audio = document.getElementById("lofiAudio");
 
-  // fade from typing image to "smile" image (if available)
-  setTimeout(() => {
-    scene.classList.add("smile-on");
-  }, 1200);
+  setTimeout(() => scene.classList.add("smile-on"), 1200);
 
   // typing effect
-  const welcomeText = "Welcome! ✨";
+  const text = "Welcome! ✨";
   let i = 0;
-  function typeStep() {
-    if (i <= welcomeText.length) {
-      welcomeEl.textContent = welcomeText.slice(0, i);
+  function typing() {
+    if (i <= text.length) {
+      welcomeEl.textContent = text.slice(0, i);
       i++;
-      setTimeout(typeStep, 90);
+      setTimeout(typing, 90);
     } else {
-      setTimeout(() => thankYouEl.classList.add("show"), 300);
+      thankYouEl.classList.add("show");
     }
   }
-  setTimeout(typeStep, 800);
+  setTimeout(typing, 600);
 
-  // real counter with animated count
-  function animateCount(finalNumber) {
-    let current = 0;
-    const inc = Math.max(1, Math.ceil(finalNumber / 80));
-    const interval = setInterval(() => {
-      current += inc;
-      if (current >= finalNumber) {
-        current = finalNumber;
-        clearInterval(interval);
-      }
-      visitorEl.textContent = current.toLocaleString();
-    }, 20);
-  }
-
-  fetch("https://api.countapi.xyz/hit/ananya-cozy-anime-room/visits")
+  // working visitor API
+  fetch("https://api.counterapi.dev/v1/ananya/cozy/visits")
     .then(r => r.json())
-    .then(data => animateCount(data.value || 1))
+    .then(d => visitorEl.textContent = d.count)
     .catch(() => visitorEl.textContent = "✨");
 
-  // floating dust
-  for (let j = 0; j < 28; j++) {
-    const d = document.createElement("div");
-    d.className = "dust";
-    d.style.left = Math.random() * 100 + "vw";
-    d.style.bottom = (Math.random() * 40 - 10) + "px";
-    d.style.animationDuration = (8 + Math.random() * 6) + "s";
-    d.style.animationDelay = (Math.random() * 6) + "s";
-    document.body.appendChild(d);
-  }
+  // night mode
+  document.getElementById("themeToggle").onclick = () => {
+    document.body.classList.toggle("night");
+  };
 
-  // night/day toggle
-  let isNight = false;
-  themeToggle.addEventListener("click", () => {
-    isNight = !isNight;
-    document.body.classList.toggle("night", isNight);
-    themeToggle.querySelector(".icon").textContent = isNight ? "☀️" : "🌙";
-    themeToggle.querySelectorAll("span")[1].textContent = isNight ? "Day mode" : "Night mode";
-  });
-
-  // lofi toggle
+  // music
+  const audio = document.getElementById("lofiAudio");
   let musicOn = false;
-  musicToggle.addEventListener("click", async () => {
+  document.getElementById("musicToggle").onclick = async () => {
     musicOn = !musicOn;
     if (musicOn) {
-      try {
-        await audio.play();
-        musicToggle.querySelector(".icon").textContent = "🎶";
-        musicToggle.querySelectorAll("span")[1].textContent = "Lofi: on";
-      } catch (e) {
-        musicOn = false;
-        console.warn("Lofi audio couldn't play (no file or browser blocked).");
-      }
+      await audio.play();
+      musicToggle.textContent = "🎶 Lofi: on";
     } else {
       audio.pause();
-      musicToggle.querySelector(".icon").textContent = "🎧";
-      musicToggle.querySelectorAll("span")[1].textContent = "Lofi: off";
+      musicToggle.textContent = "🎧 Lofi: off";
     }
-  });
-
-  // mouse sparkles
-  let sparkleCooldown = false;
-  window.addEventListener("mousemove", (e) => {
-    if (sparkleCooldown) return;
-    sparkleCooldown = true;
-    setTimeout(() => sparkleCooldown = false, 60);
-
-    const s = document.createElement("div");
-    s.className = "sparkle";
-    s.style.left = e.clientX + "px";
-    s.style.top = e.clientY + "px";
-    document.body.appendChild(s);
-    setTimeout(() => s.remove(), 800);
-  });
+  };
 </script>
+
 </body>
 </html>
